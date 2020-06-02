@@ -10,12 +10,14 @@ function! devicons#plugins#unite#init() abort
         let bufname = bufname(candidate.action__buffer_nr)
         let filename = fnamemodify(bufname, ':p:t')
         let path = fnamemodify(bufname, ':p:h')
+        let fullpath = fnamemodify(bufname, ':p')
       elseif has_key(candidate, 'word') && has_key(candidate, 'action__path')
         let path = candidate.action__path
         let filename = candidate.word
+        let fullpath = path
       endif
 
-      let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(filename))
+      let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(fullpath))
 
       " prevent filenames of buffers getting 'lost'
       if filename != path
